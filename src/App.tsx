@@ -1,8 +1,25 @@
-import React from 'react';
+import React, { useState, useEffect } from "react";
 import logo from './logo.svg';
 import './App.css';
 
 function App() {
+  const [visitorCount, setVisitorCount] = useState(0);
+
+  useEffect(() => {
+    let count = 0;
+    const visitorCount = localStorage.getItem("visitorCount");
+
+    if (visitorCount) {
+      count = parseInt(visitorCount);
+    }
+
+    count++; 
+    console.log(count);
+
+    localStorage.setItem("visitorCount", count.toString());
+    setVisitorCount(count);
+  }, []);
+
   return (
     <div className="App">
       <header className="App-header">
@@ -17,6 +34,7 @@ function App() {
           rel="noopener noreferrer"
         >
           Learn React
+          <h2>Visitor Count: {visitorCount}</h2>
         </a>
       </header>
     </div>
